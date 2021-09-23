@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Andrei Asipchuk](https://up.htmlacademy.ru/javascript/24/user/897455).
-* Наставник: `Неизвестно`.
+* Наставник: [Игорь Агапов](https://up.htmlacademy.ru/javascript/24/user/1034633).
 
 ---
 
