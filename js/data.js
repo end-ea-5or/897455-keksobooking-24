@@ -23,7 +23,7 @@ const PHOTOS_LINKS = ['https://assets.htmlacademy.ru/content/intensive/javascrip
 
 const createAd = () => {
   const locationCoordinates = [getRandomIntFromRange(LOCATION_COORDS.LAT_MIN, LOCATION_COORDS.LAT_MAX, 5), getRandomIntFromRange(LOCATION_COORDS.LNG_MIN, LOCATION_COORDS.LNG_MAX, 5)];
-  const featuresList = FEATURES.slice().sort(() => Math.random() - 0.5).slice(0, getRandomIntFromRange(1, FEATURES.length));
+  const featuresList = FEATURES.slice().sort(() => Math.random() - 0.5).slice(0, getRandomIntFromRange(0, FEATURES.length));
   return {
     author: {
       avatar: `img/avatars/user${  USER_PIC_NUMBERS[getRandomIntFromRange(0, USER_PIC_NUMBERS.length - 1)]  }.png`,
