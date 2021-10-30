@@ -29,8 +29,8 @@ adForm.addEventListener('input', (evt) => {
     formPrice.reportValidity();
   }
   // валидация полей количество комнат и количества мест
-  for (let k = 0; k < placesNumber.children.length; k++) {
-    placesNumber.children[k].setAttribute('disabled', 'disabled');
+  for (let counter = 0; counter < placesNumber.children.length; counter++) {
+    placesNumber.children[counter].setAttribute('disabled', 'disabled');
   }
   if (evt.target === roomNumber) {
     switch (true) {
