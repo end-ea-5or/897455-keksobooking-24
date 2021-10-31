@@ -1,13 +1,22 @@
 import { adForm } from './form-control.js';
+import { getSinsynchronizeTime } from './utils.js';
 
+let priceForHouse = 1000;
 const TITLE_MIN_LENGTH = 30;
-//const TITLE_MAX_LENGTH = 100;
-const PRICE_MAX_LENGTH = 1000000;
+const PRICE_MAX = 1000000;
+const PRICE_MIN_BUNGALOW = 0;
+const PRICE_MIN_FLAT = 1000;
+const PRICE_MIN_HOTEL = 3000;
+const PRICE_MIN_HOUSE = 5000;
+const PRICE_MIN_PALACE = 10000;
 
 const formTitle = adForm.querySelector('#title');
 const formPrice = adForm.querySelector('#price');
+const typeOfHouse = adForm.querySelector('#type');
 const roomNumber = adForm.querySelector('#room_number');
 const placesNumber = adForm.querySelector('#capacity');
+const timeIn = adForm.querySelector('#timein');
+const timeOut = adForm.querySelector('#timeout');
 
 adForm.addEventListener('input', (evt) => {
   // валидация поля загловка объявления
@@ -20,11 +29,34 @@ adForm.addEventListener('input', (evt) => {
     }
     formTitle.reportValidity();
   }
-  // валидация поля цены за ночь
+  // валидация полей тип жилья и  цены за ночь
+  if (evt.target === typeOfHouse) {
+    switch (typeOfHouse.value) {
+      case 'bungalow':
+        priceForHouse = PRICE_MIN_BUNGALOW;
+        break;
+      case 'flat':
+        priceForHouse = PRICE_MIN_FLAT;
+        break;
+      case 'hotel':
+        priceForHouse = PRICE_MIN_HOTEL;
+        break;
+      case 'house':
+        priceForHouse = PRICE_MIN_HOUSE;
+        break;
+      case 'palace':
+        priceForHouse = PRICE_MIN_PALACE;
+        break;
+    }
+    formPrice.placeholder = priceForHouse;
+  }
   if (evt.target === formPrice) {
     const valueLength = formTitle.value.length;
-    if (valueLength > PRICE_MAX_LENGTH) {
-      formPrice.setCustomValidity(`Максимальное значение должно быть меньше ${PRICE_MAX_LENGTH}`);
+    if (valueLength > PRICE_MAX) {
+      formPrice.setCustomValidity(`Максимальное значение должно быть меньше ${PRICE_MAX}`);
+    }
+    if (valueLength < priceForHouse) {
+      formPrice.setCustomValidity(`Минимальное значение должно быть больше ${priceForHouse}`);
     }
     formPrice.reportValidity();
   }
@@ -55,4 +87,7 @@ adForm.addEventListener('input', (evt) => {
         break;
     }
   }
+  // синхронизация времени заезда и выезда
+  getSinsynchronizeTime(evt, timeIn, timeOut);
+  getSinsynchronizeTime(evt, timeOut, timeIn);
 });
