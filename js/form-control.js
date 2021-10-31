@@ -25,4 +25,4 @@ const getActiveForm = () => {
   }
 };
 
-export {getInactiveForm, getActiveForm};
+export {getInactiveForm, getActiveForm, adForm};

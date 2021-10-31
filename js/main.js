@@ -1,5 +1,6 @@
 import {cardListFragment} from './cards.js';
 import {getActiveForm} from './form-control.js';
+import './form-validation.js';
 
 getActiveForm();
 
