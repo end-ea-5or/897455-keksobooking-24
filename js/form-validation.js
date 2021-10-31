@@ -51,12 +51,17 @@ adForm.addEventListener('input', (evt) => {
     formPrice.placeholder = priceForHouse;
   }
   if (evt.target === formPrice) {
-    const valueLength = formTitle.value.length;
-    if (valueLength > PRICE_MAX) {
-      formPrice.setCustomValidity(`Максимальное значение должно быть меньше ${PRICE_MAX}`);
-    }
-    if (valueLength < priceForHouse) {
-      formPrice.setCustomValidity(`Минимальное значение должно быть больше ${priceForHouse}`);
+    const fieldValue = formPrice.value;
+    switch (true) {
+      case (fieldValue < priceForHouse):
+        formPrice.setCustomValidity(`Цена должна быть больше ${priceForHouse}`);
+        break;
+      case (fieldValue > PRICE_MAX):
+        formPrice.setCustomValidity(`Цена должна быть меньше ${PRICE_MAX}`);
+        break;
+      default:
+        formPrice.setCustomValidity('');
+        break;
     }
     formPrice.reportValidity();
   }
