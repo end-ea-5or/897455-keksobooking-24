@@ -7,4 +7,16 @@ const getRandomIntFromRange = (from, to, decimalPlaces = 0) => {
   return +(Math.random() * (upper - lower) + lower).toFixed(decimalPlaces);
 };
 
-export {getRandomIntFromRange};
+// функция для синхронизации полей времени заезда и выезда
+const getSinsynchronizeTime = (evt, fieldOne, fieldTwo) => {
+  if (evt.target === fieldOne) {
+    for (let count = 0; count < fieldOne.children.length; count++) {
+      if (fieldOne.children[count].selected) {
+        fieldTwo.children[count].selected = true;
+      }
+    }
+  }
+};
+
+
+export {getRandomIntFromRange, getSinsynchronizeTime};
