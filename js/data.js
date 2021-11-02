@@ -49,5 +49,4 @@ const createAd = () => {
 };
 
 const simularAds = Array.from({length: ADS_NUMBER}, createAd);
-
 export {simularAds};

@@ -25,4 +25,7 @@ const getActiveForm = () => {
   }
 };
 
+// при загрузке страницы она сначала переходит в неактивное состояние
+window.onload = getInactiveForm();
+
 export {getInactiveForm, getActiveForm, adForm};

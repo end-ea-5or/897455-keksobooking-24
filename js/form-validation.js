@@ -53,11 +53,14 @@ adForm.addEventListener('input', (evt) => {
   if (evt.target === formPrice) {
     const fieldValue = formPrice.value;
     switch (true) {
-      case (fieldValue < priceForHouse):
+      case (fieldValue < priceForHouse && fieldValue !== 55555):
         formPrice.setCustomValidity(`Цена должна быть больше ${priceForHouse}`);
         break;
-      case (fieldValue > PRICE_MAX):
+      case (fieldValue > PRICE_MAX && fieldValue !== 55555):
         formPrice.setCustomValidity(`Цена должна быть меньше ${PRICE_MAX}`);
+        break;
+      case (fieldValue === 55555):
+        formPrice.setCustomValidity('iohadsladkb,asbdasd');
         break;
       default:
         formPrice.setCustomValidity('');
@@ -66,31 +69,25 @@ adForm.addEventListener('input', (evt) => {
     formPrice.reportValidity();
   }
   // валидация полей количество комнат и количества мест
-  for (let counter = 0; counter < placesNumber.children.length; counter++) {
-    placesNumber.children[counter].setAttribute('disabled', 'disabled');
-  }
-  if (evt.target === roomNumber) {
+  if (evt.target === roomNumber || evt.target === placesNumber) {
     switch (true) {
-      case roomNumber.querySelector('[value="1"]').selected:
-        placesNumber.querySelector('[value="1"]').removeAttribute('disabled');
-        placesNumber.querySelector('[value="1"]').selected = true;
+      case (roomNumber.value === '1' && placesNumber.value !== '1'):
+        evt.target.setCustomValidity('Для 1 комнаты количество мест может быть только для 1 гостя');
         break;
-      case roomNumber.querySelector('[value="2"]').selected:
-        placesNumber.querySelector('[value="1"]').removeAttribute('disabled');
-        placesNumber.querySelector('[value="2"]').removeAttribute('disabled');
-        placesNumber.querySelector('[value="2"]').selected = true;
+      case (roomNumber.value === '2' && (placesNumber.value !== '1' || placesNumber.value !== '2')):
+        evt.target.setCustomValidity('Для 2 комнат количество мест может быть для 1 или 2 гостей');
         break;
-      case roomNumber.querySelector('[value="3"]').selected:
-        placesNumber.querySelector('[value="1"]').removeAttribute('disabled');
-        placesNumber.querySelector('[value="2"]').removeAttribute('disabled');
-        placesNumber.querySelector('[value="3"]').removeAttribute('disabled');
-        placesNumber.querySelector('[value="2"]').selected = true;
+      case (roomNumber.value === '3' && placesNumber.value === '0'):
+        evt.target.setCustomValidity('Для 3 комнат количество мест может быть для 1, 2 или 3 гостей');
         break;
-      case roomNumber.querySelector('[value="100"]').selected:
-        placesNumber.querySelector('[value="0"]').removeAttribute('disabled');
-        placesNumber.querySelector('[value="0"]').selected = true;
+      case (roomNumber.value === '100' && placesNumber.value !== '0'):
+        evt.target.setCustomValidity('Для 100 комнат количество мест - не для гостей');
+        break;
+      default:
+        evt.target.setCustomValidity('');
         break;
     }
+    evt.target.reportValidity();
   }
   // синхронизация времени заезда и выезда
   getSinsynchronizeTime(evt, timeIn, timeOut);

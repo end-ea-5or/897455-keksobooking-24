@@ -18,5 +18,11 @@ const getSinsynchronizeTime = (evt, fieldOne, fieldTwo) => {
   }
 };
 
+// функция заполнения поля адреса (координаты)
+const getFillAddress = ({ lat, lng }, field) => {
+  const currentLat = lat.toFixed(5);
+  const currentLng = lng.toFixed(5);
+  field.value = `${currentLat}, ${currentLng}`;
+};
 
-export {getRandomIntFromRange, getSinsynchronizeTime};
+export { getRandomIntFromRange, getSinsynchronizeTime, getFillAddress };

@@ -1,8 +1,8 @@
-import {cardListFragment} from './cards.js';
-import {getActiveForm} from './form-control.js';
+// import {cardListFragment} from './cards.js';
+import './form-control.js';
 import './form-validation.js';
+import './map.js';
+import './cards.js';
 
-getActiveForm();
-
-const mapCanvas = document.querySelector('#map-canvas');
-mapCanvas.appendChild(cardListFragment.children[3]);
+// const mapCanvas = document.querySelector('#map-canvas');
+// mapCanvas.appendChild(cardListFragment.children[1]);
