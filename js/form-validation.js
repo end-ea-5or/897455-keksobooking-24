@@ -59,9 +59,6 @@ adForm.addEventListener('input', (evt) => {
       case (fieldValue > PRICE_MAX && fieldValue !== 55555):
         formPrice.setCustomValidity(`Цена должна быть меньше ${PRICE_MAX}`);
         break;
-      case (fieldValue === 55555):
-        formPrice.setCustomValidity('iohadsladkb,asbdasd');
-        break;
       default:
         formPrice.setCustomValidity('');
         break;
@@ -70,11 +67,16 @@ adForm.addEventListener('input', (evt) => {
   }
   // валидация полей количество комнат и количества мест
   if (evt.target === roomNumber || evt.target === placesNumber) {
+    roomNumber.setCustomValidity('');
+    placesNumber.setCustomValidity('');
     switch (true) {
       case (roomNumber.value === '1' && placesNumber.value !== '1'):
         evt.target.setCustomValidity('Для 1 комнаты количество мест может быть только для 1 гостя');
         break;
-      case (roomNumber.value === '2' && (placesNumber.value !== '1' || placesNumber.value !== '2')):
+      case (roomNumber.value === '2' && placesNumber.value === '3'):
+        evt.target.setCustomValidity('Для 2 комнат количество мест может быть для 1 или 2 гостей');
+        break;
+      case (roomNumber.value === '2' && placesNumber.value === '0'):
         evt.target.setCustomValidity('Для 2 комнат количество мест может быть для 1 или 2 гостей');
         break;
       case (roomNumber.value === '3' && placesNumber.value === '0'):
@@ -84,7 +86,6 @@ adForm.addEventListener('input', (evt) => {
         evt.target.setCustomValidity('Для 100 комнат количество мест - не для гостей');
         break;
       default:
-        evt.target.setCustomValidity('');
         break;
     }
     evt.target.reportValidity();
