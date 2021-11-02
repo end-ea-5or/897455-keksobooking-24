@@ -1,6 +1,8 @@
 import { getActiveForm } from './form-control.js';
 import { adForm } from './form-control.js';
 import { getFillAddress } from './utils.js';
+import { simularAds } from './data.js';
+import { cardListFragment } from './cards.js';
 
 const coordinateField = adForm.querySelector('#address');
 const DEFAULT_COORDINATES = {
@@ -43,4 +45,21 @@ marker.addTo(map);
 // заполнение поля адреса координатами маркера
 marker.on('drag', () => {
   getFillAddress(marker.getLatLng(), coordinateField);
+});
+
+// отрисовка меток похожих объявлений
+simularAds.forEach((element, index) => {
+  const { lat, lng } = element.location;
+  const pin = L.icon({
+    iconUrl: '../img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
+  const point = L.marker({
+    lat,
+    lng,
+  },
+  { icon: pin },
+  );
+  point.addTo(map).bindPopup(cardListFragment.children[index]);
 });

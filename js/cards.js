@@ -49,6 +49,5 @@ simularAds.forEach(({author, offer}) => {
   cardItem.querySelector('.popup__avatar').src = author.avatar;
   cardListFragment.appendChild(cardItem);
 });
-
 export { cardListFragment };
 
