@@ -7,6 +7,7 @@ const errorTemplate = document.querySelector('#error').content;
 const onMessageEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
+    // eslint-disable-next-line no-use-before-define
     deleteMessage();
   }
 };
