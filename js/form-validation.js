@@ -1,4 +1,3 @@
-import { adForm } from './form-control.js';
 import { getSinsynchronizeTime } from './utils.js';
 
 let priceForHouse = 1000;
@@ -10,6 +9,7 @@ const PRICE_MIN_HOTEL = 3000;
 const PRICE_MIN_HOUSE = 5000;
 const PRICE_MIN_PALACE = 10000;
 
+const adForm = document.querySelector('.ad-form');
 const formTitle = adForm.querySelector('#title');
 const formPrice = adForm.querySelector('#price');
 const typeOfHouse = adForm.querySelector('#type');

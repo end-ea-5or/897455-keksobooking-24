@@ -1,19 +1,22 @@
-import { getActiveForm } from './form-control.js';
-import { adForm } from './form-control.js';
-import { getFillAddress } from './utils.js';
-import { simularAds } from './data.js';
+import { getFillAddress, getActiveForm, getInactiveForm } from './utils.js';
 import { cardListFragment } from './cards.js';
+import { getData } from './api.js';
 
+const adForm = document.querySelector('.ad-form');
+const mapFilters = document.querySelector('.map__filters');
 const coordinateField = adForm.querySelector('#address');
 const DEFAULT_COORDINATES = {
   lat: 35.6828,
   lng: 139.7595,
 };
 
+// при загрузке страницы она сначала переходит в неактивное состояние
+window.onload = getInactiveForm(adForm, mapFilters);
+
 // подключаем карту к странице
 const map = L.map('map-canvas')
   .on('load', () => {
-    getActiveForm();
+    getActiveForm(adForm, mapFilters);
     getFillAddress(DEFAULT_COORDINATES, coordinateField);
   })
   .setView(DEFAULT_COORDINATES, 13);
@@ -24,6 +27,9 @@ L.tileLayer(
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
 ).addTo(map);
+
+// создаем слой
+const markerGroup = L.layerGroup().addTo(map);
 
 // cоздаем и добавляем на карту главную метку
 const mainPin = L.icon({
@@ -48,18 +54,24 @@ marker.on('drag', () => {
 });
 
 // отрисовка меток похожих объявлений
-simularAds.forEach((element, index) => {
-  const { lat, lng } = element.location;
-  const pin = L.icon({
-    iconUrl: '../img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+const getAddPins = (tags) => {
+  tags.forEach((element, index) => {
+    const { lat, lng } = element.location;
+    const pin = L.icon({
+      iconUrl: '../img/pin.svg',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
+    const point = L.marker({
+      lat,
+      lng,
+    },
+    { icon: pin },
+    );
+    point.addTo(markerGroup).bindPopup(cardListFragment.children[index]);
   });
-  const point = L.marker({
-    lat,
-    lng,
-  },
-  { icon: pin },
-  );
-  point.addTo(map).bindPopup(cardListFragment.children[index]);
-});
+};
+
+getData(getAddPins);
+
+export { marker, DEFAULT_COORDINATES, map };
