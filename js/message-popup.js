@@ -7,7 +7,7 @@ const errorTemplate = document.querySelector('#error').content;
 const onMessageEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    deleteMessage(evt);
+    deleteMessage();
   }
 };
 
