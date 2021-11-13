@@ -5,12 +5,12 @@ import { showDataSendError, showDataSendSuccess } from './message-popup.js';
 const adForm = document.querySelector('.ad-form');
 const resetButton = adForm.querySelector('.ad-form__reset');
 
-const setUserFormSubmit = () => {
+function setUserFormSubmit () {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     sendData(showDataSendSuccess, showDataSendError, new FormData(evt.target));
   });
-};
+}
 
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();

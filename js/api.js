@@ -1,30 +1,31 @@
-import { showDataGetError } from './utils.js';
+const URL = 'https://24.javascript.pages.academy/keksobooking';
 
-const getData = (onSuccess) => {
-  fetch('https://24.javascript.pages.academy/keksobooking/data')
-    .then((response) => response.json())
-    .then((ads) => { onSuccess(ads); })
-    .catch(() => {
-      showDataGetError();
-    });
+const getData = async (onSuccess, onFail) => {
+  try {
+    const response = await fetch(`${URL}/data`); // получит промис
+    if (!response.ok) {
+      throw new Error(`${response.status} - ${response.statusText}`);
+    }
+    const data = await response.json(); // получит массив данных
+    onSuccess(data);
+  } catch (error) {
+    onFail(error);
+  }
 };
 
-const sendData = (onSuccess, onFail, body) => {
-  fetch(' https://24.javascript.pages.academy/keksobooking ', {
-    method: 'POST',
-    body,
-  },
-  )
-    .then((response) => {
-      if (response.ok) {
-        onSuccess();
-      } else {
-        onFail();
-      }
-    })
-    .catch(() => {
-      onFail();
+const sendData = async (onSuccess, onFail, body) => {
+  try {
+    const response = await fetch(`${URL}`, {
+      method: 'POST',
+      body,
     });
+    if (!response.ok) {
+      throw new Error(`${response.status} - ${response.statusText}`);
+    }
+    onSuccess();
+  } catch (error) {
+    onFail(error);
+  }
 };
 
 export { getData, sendData };

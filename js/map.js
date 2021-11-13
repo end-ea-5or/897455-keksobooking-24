@@ -1,4 +1,4 @@
-import { getFillAddress, getActiveForm, getInactiveForm } from './utils.js';
+import { getFillAddress, getActiveForm, getInactiveForm, showDataGetError } from './utils.js';
 import { cardListFragment } from './cards.js';
 import { getData } from './api.js';
 
@@ -72,6 +72,6 @@ const getAddPins = (tags) => {
   });
 };
 
-getData(getAddPins);
+getData(getAddPins, showDataGetError);
 
 export { marker, DEFAULT_COORDINATES, map };

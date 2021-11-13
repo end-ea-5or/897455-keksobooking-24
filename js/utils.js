@@ -17,10 +17,10 @@ const getFillAddress = ({ lat, lng }, field) => {
 };
 
 // функция сообщения об ошибке получения данных
-const showDataGetError = () => {
+const showDataGetError = (errorText) => {
   const sectionMap = document.querySelector('.map');
   const blockError = document.createElement('div');
-  blockError.innerHTML = 'При загрузке данных с сервера произошла ошибка запроса';
+  blockError.innerHTML = `При загрузке данных с сервера произошла ошибка: ${errorText}`;
   blockError.style.cssText = 'position: absolute; z-index: 1000; background-color: rgb(246, 105, 105); color: white;';
   sectionMap.prepend(blockError);
 };

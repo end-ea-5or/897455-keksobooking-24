@@ -19,9 +19,11 @@ function deleteMessage() {
 }
 
 // функция сообщения об ошибке отправки данных формы
-const showDataSendError = () => {
+const showDataSendError = (errorText) => {
   const errorBlock = errorTemplate.cloneNode(true);
   errorBlock.firstElementChild.classList.add('js_message');
+  const errorParagraph = errorBlock.querySelector('.error__message');
+  errorParagraph.innerHTML += `<br><span style="font-size: 50%;">${errorText}</span>`;
   const errorButton = errorBlock.querySelector('.js_message button');
   document.querySelector('body').appendChild(errorBlock);
   document.addEventListener('keydown', onMessageEscKeydown);
