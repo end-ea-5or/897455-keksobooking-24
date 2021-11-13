@@ -1,5 +1,5 @@
 import { getFillAddress, getActiveForm, getInactiveForm, showDataGetError } from './utils.js';
-import { cardListFragment } from './cards.js';
+import { getCreateCard } from './cards.js';
 import { getData } from './api.js';
 
 const adForm = document.querySelector('.ad-form');
@@ -53,7 +53,7 @@ marker.on('drag', () => {
   getFillAddress(marker.getLatLng(), coordinateField);
 });
 
-// отрисовка меток похожих объявлений
+// функция для отрисовка меток похожих объявлений
 const getAddPins = (tags) => {
   tags.forEach((element, index) => {
     const { lat, lng } = element.location;
@@ -68,8 +68,9 @@ const getAddPins = (tags) => {
     },
     { icon: pin },
     );
-    point.addTo(markerGroup).bindPopup(cardListFragment.children[index]);
+    point.addTo(markerGroup).bindPopup(getCreateCard(tags).children[index]);
   });
+  getCreateCard(tags);
 };
 
 getData(getAddPins, showDataGetError);

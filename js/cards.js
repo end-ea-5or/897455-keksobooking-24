@@ -1,10 +1,7 @@
-import { getData } from './api.js';
-// import { simularAds } from './data.js';
-
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-const cardListFragment = document.createDocumentFragment();
 
 const getCreateCard = (list) => {
+  const cardListFragment = document.createDocumentFragment();
   list.forEach(({ author, offer }) => {
     const cardItem = cardTemplate.cloneNode(true);
     cardItem.querySelector('.popup__title').textContent = offer.title;
@@ -57,8 +54,8 @@ const getCreateCard = (list) => {
     cardItem.querySelector('.popup__avatar').src = author.avatar;
     cardListFragment.appendChild(cardItem);
   });
+  return cardListFragment;
 };
 
-getData(getCreateCard);
-export { cardListFragment };
+export { getCreateCard };
 
