@@ -1,8 +1,13 @@
 // import {cardListFragment} from './cards.js';
-import './form-control.js';
+import { setUserFormSubmit } from './form-control.js';
+import './utils.js';
+import './api.js';
 import './form-validation.js';
 import './map.js';
 import './cards.js';
+import './reset.js';
+import './message-popup.js';
 
-// const mapCanvas = document.querySelector('#map-canvas');
-// mapCanvas.appendChild(cardListFragment.children[1]);
+setUserFormSubmit();
+
+

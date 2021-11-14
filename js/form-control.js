@@ -1,31 +1,20 @@
+import { sendData } from './api.js';
+import { getResetForms } from './reset.js';
+import { showDataSendError, showDataSendSuccess } from './message-popup.js';
+
 const adForm = document.querySelector('.ad-form');
-const mapFilters = document.querySelector('.map__filters');
-const inputList = adForm.querySelectorAll('fieldset');
-const filtersList = mapFilters.querySelectorAll('select, fieldset');
+const resetButton = adForm.querySelector('.ad-form__reset');
 
-const getInactiveForm = () => {
-  adForm.classList.add('ad-form--disabled');
-  mapFilters.classList.add('ad-form--disabled');
-  for (let index = 0; index < inputList.length; index++) {
-    inputList[index].setAttribute('disabled', 'disabled');
-  }
-  for (let index = 0; index < filtersList.length; index++) {
-    filtersList[index].setAttribute('disabled', 'disabled');
-  }
-};
+function setUserFormSubmit () {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    sendData(showDataSendSuccess, showDataSendError, new FormData(evt.target));
+  });
+}
 
-const getActiveForm = () => {
-  adForm.classList.remove('ad-form--disabled');
-  mapFilters.classList.remove('ad-form--disabled');
-  for (let index = 0; index < inputList.length; index++) {
-    inputList[index].removeAttribute('disabled', 'disabled');
-  }
-  for (let index = 0; index < filtersList.length; index++) {
-    filtersList[index].removeAttribute('disabled', 'disabled');
-  }
-};
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  getResetForms();
+});
 
-// при загрузке страницы она сначала переходит в неактивное состояние
-window.onload = getInactiveForm();
-
-export {getInactiveForm, getActiveForm, adForm};
+export { setUserFormSubmit };
