@@ -573,6 +573,7 @@ fieldset {
 }
 
 .ad-form__photo {
+  display: flex;
   margin-right: 10px;
   margin-bottom: 10px;
 
@@ -581,6 +582,10 @@ fieldset {
 
   background-color: #e4e4de;
   border-radius: 5px;
+}
+
+.ad-form__photo img {
+  margin-right: 10px;
 }
 
 .ad-form__element--submit {
