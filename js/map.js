@@ -11,12 +11,12 @@ const DEFAULT_COORDINATES = {
 };
 
 // при загрузке страницы она сначала переходит в неактивное состояние
-window.onload = getInactiveForm(adForm, mapFilters);
+getInactiveForm(adForm, mapFilters);
 
 // подключаем карту к странице
 const map = L.map('map-canvas')
   .on('load', () => {
-    getActiveForm(adForm, mapFilters);
+    // getActiveForm(adForm, mapFilters);
     getFillAddress(DEFAULT_COORDINATES, coordinateField);
   })
   .setView(DEFAULT_COORDINATES, 13);
@@ -55,6 +55,7 @@ marker.on('drag', () => {
 
 // функция для отрисовка меток похожих объявлений
 const getAddPins = (tags) => {
+  getActiveForm(adForm, mapFilters);
   tags.forEach((element, index) => {
     const { lat, lng } = element.location;
     const pin = L.icon({
@@ -75,4 +76,4 @@ const getAddPins = (tags) => {
 
 getData(getAddPins, showDataGetError);
 
-export { marker, DEFAULT_COORDINATES, map };
+export { marker, DEFAULT_COORDINATES, getAddPins, map, markerGroup };
