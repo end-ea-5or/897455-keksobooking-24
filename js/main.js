@@ -8,5 +8,6 @@ import './cards.js';
 import './reset.js';
 import './message-popup.js';
 import './filter.js';
+import './file-upload.js';
 
 setUserFormSubmit();

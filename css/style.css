@@ -573,6 +573,7 @@ fieldset {
 }
 
 .ad-form__photo {
+  display: flex;
   margin-right: 10px;
   margin-bottom: 10px;
 

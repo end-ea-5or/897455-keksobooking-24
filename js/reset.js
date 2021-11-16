@@ -2,6 +2,7 @@ import { map, marker, markerGroup, getAddPins, DEFAULT_COORDINATES} from './map.
 import { getFillAddress } from './utils.js';
 import { dataList } from './api.js';
 import { MAX_LENGTH_DATA } from './filter.js';
+import { photoPreviewBlock, avatarPreview } from './file-upload.js';
 
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -16,6 +17,8 @@ const getResetForms = () => {
   markerGroup.clearLayers();
   getAddPins(dataList.slice(0, MAX_LENGTH_DATA));
   map.setView(DEFAULT_COORDINATES, 13);
+  photoPreviewBlock.innerHTML = '';
+  avatarPreview.src = '../img/muffin-grey.svg';
 };
 
 export {getResetForms};
