@@ -9,6 +9,7 @@ const DEFAULT_COORDINATES = {
   lat: 35.6828,
   lng: 139.7595,
 };
+const MAP_ZOOM_VALUE = 13;
 
 // при загрузке страницы она сначала переходит в неактивное состояние
 getInactiveForm(adForm, mapFilters);
@@ -16,10 +17,9 @@ getInactiveForm(adForm, mapFilters);
 // подключаем карту к странице
 const map = L.map('map-canvas')
   .on('load', () => {
-    // getActiveForm(adForm, mapFilters);
     getFillAddress(DEFAULT_COORDINATES, coordinateField);
   })
-  .setView(DEFAULT_COORDINATES, 13);
+  .setView(DEFAULT_COORDINATES, MAP_ZOOM_VALUE);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -76,4 +76,4 @@ const getAddPins = (tags) => {
 
 getData(getAddPins, showDataGetError);
 
-export { marker, DEFAULT_COORDINATES, getAddPins, map, markerGroup };
+export { marker, DEFAULT_COORDINATES, MAP_ZOOM_VALUE, getAddPins, map, markerGroup };

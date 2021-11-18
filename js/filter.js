@@ -43,7 +43,7 @@ const isNumberOfGuestsMatch = ({ offer: { guests } }) =>
 const isFeatureIncludes = ({ offer: { features } }) => {
   const listOfFeatures = mapFilter.querySelectorAll('[name="features"]:checked');
   const listOfFeaturesValues = Array.from(listOfFeatures, (item) => item.value); // массив из чекнутых преимуществ
-  if (!features) { return false; }
+  if (!features && listOfFeatures.length !== 0) { return false; }
   return listOfFeaturesValues.every((element) => features.includes(element));
 };
 
@@ -51,14 +51,12 @@ const isFeatureIncludes = ({ offer: { features } }) => {
 mapFilter.addEventListener('change', debounce(
   () => {
     markerGroup.clearLayers(); // предварительно очищаем слой меток на карте
-    getAddPins(
-      dataList.slice()
-        .filter(isTypeOfHousingSame)
-        .filter(isPriceOfHouseSame)
-        .filter(isNumberOfRoomsSame)
-        .filter(isNumberOfGuestsMatch)
-        .filter(isFeatureIncludes)
-        .slice(0, MAX_LENGTH_DATA));
+    getAddPins(dataList.slice().filter((it) =>
+      isTypeOfHousingSame(it)
+      && isPriceOfHouseSame(it)
+      && isNumberOfRoomsSame(it)
+      && isNumberOfGuestsMatch(it)
+      && isFeatureIncludes(it)).slice(0, MAX_LENGTH_DATA));
   }));
 
 export { MAX_LENGTH_DATA };

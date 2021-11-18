@@ -1,6 +1,5 @@
 import { getSinsynchronizeTime } from './utils.js';
 
-let priceForHouse = 1000;
 const TITLE_MIN_LENGTH = 30;
 const PRICE_MAX = 1000000;
 const PRICE_MIN_BUNGALOW = 0;
@@ -18,8 +17,8 @@ const placesNumber = adForm.querySelector('#capacity');
 const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
 
-adForm.addEventListener('input', (evt) => {
-  // валидация поля загловка объявления
+// функция для валидации поля загловка объявления
+const validationFieldTitle = (evt) => {
   if (evt.target === formTitle) {
     const valueLength = formTitle.value.length;
     if (valueLength < TITLE_MIN_LENGTH) {
@@ -29,43 +28,10 @@ adForm.addEventListener('input', (evt) => {
     }
     formTitle.reportValidity();
   }
-  // валидация полей тип жилья и  цены за ночь
-  if (evt.target === typeOfHouse) {
-    switch (typeOfHouse.value) {
-      case 'bungalow':
-        priceForHouse = PRICE_MIN_BUNGALOW;
-        break;
-      case 'flat':
-        priceForHouse = PRICE_MIN_FLAT;
-        break;
-      case 'hotel':
-        priceForHouse = PRICE_MIN_HOTEL;
-        break;
-      case 'house':
-        priceForHouse = PRICE_MIN_HOUSE;
-        break;
-      case 'palace':
-        priceForHouse = PRICE_MIN_PALACE;
-        break;
-    }
-    formPrice.placeholder = priceForHouse;
-  }
-  if (evt.target === formPrice) {
-    const fieldValue = formPrice.value;
-    switch (true) {
-      case (fieldValue < priceForHouse && fieldValue !== 55555):
-        formPrice.setCustomValidity(`Цена должна быть больше ${priceForHouse}`);
-        break;
-      case (fieldValue > PRICE_MAX && fieldValue !== 55555):
-        formPrice.setCustomValidity(`Цена должна быть меньше ${PRICE_MAX}`);
-        break;
-      default:
-        formPrice.setCustomValidity('');
-        break;
-    }
-    formPrice.reportValidity();
-  }
-  // валидация полей количество комнат и количества мест
+};
+
+// функция для валидации полей количество комнат и количества мест
+const validationFieldsNumberOfRoomsPlases = (evt) => {
   if (evt.target === roomNumber || evt.target === placesNumber) {
     roomNumber.setCustomValidity('');
     placesNumber.setCustomValidity('');
@@ -90,6 +56,56 @@ adForm.addEventListener('input', (evt) => {
     }
     evt.target.reportValidity();
   }
+};
+
+// функция для изменения plfceholder поля "Цена за ночь"
+const changePlaceholderFieldPrice = (evt) => {
+  if (evt.target === typeOfHouse) {
+    switch (typeOfHouse.value) {
+      case 'bungalow':
+        formPrice.placeholder = PRICE_MIN_BUNGALOW;
+        break;
+      case 'flat':
+        formPrice.placeholder = PRICE_MIN_FLAT;
+        break;
+      case 'hotel':
+        formPrice.placeholder = PRICE_MIN_HOTEL;
+        break;
+      case 'house':
+        formPrice.placeholder = PRICE_MIN_HOUSE;
+        break;
+      case 'palace':
+        formPrice.placeholder = PRICE_MIN_PALACE;
+        break;
+    }
+  }
+};
+
+// функция для валидации полей тип жилья и  цены за ночь
+const validationFieldType = (evt) => {
+  if (evt.target === formPrice || evt.target === typeOfHouse) {
+    const fieldValue = formPrice.value;
+    switch (true) {
+      case (fieldValue < +formPrice.placeholder):
+        formPrice.setCustomValidity(`Цена должна быть больше ${+formPrice.placeholder}`);
+        break;
+      case (fieldValue > PRICE_MAX):
+        formPrice.setCustomValidity(`Цена должна быть меньше ${PRICE_MAX}`);
+        break;
+      default:
+        formPrice.setCustomValidity('');
+        break;
+    }
+    formPrice.reportValidity();
+  }
+};
+
+adForm.addEventListener('input', (evt) => {
+  // валидация полей
+  validationFieldTitle(evt);
+  validationFieldsNumberOfRoomsPlases(evt);
+  changePlaceholderFieldPrice(evt);
+  validationFieldType(evt);
   // синхронизация времени заезда и выезда
   getSinsynchronizeTime(evt, timeIn, timeOut);
   getSinsynchronizeTime(evt, timeOut, timeIn);
