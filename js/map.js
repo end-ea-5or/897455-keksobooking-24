@@ -33,7 +33,7 @@ const markerGroup = L.layerGroup().addTo(map);
 
 // cоздаем и добавляем на карту главную метку
 const mainPin = L.icon({
-  iconUrl: '../img/general-pin.svg',
+  iconUrl: '../img/icons/general-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
@@ -59,7 +59,7 @@ const getAddPins = (tags) => {
   tags.forEach((element, index) => {
     const { lat, lng } = element.location;
     const pin = L.icon({
-      iconUrl: '../img/neighbor-pin.svg',
+      iconUrl: '../img/icons/neighbor-pin.svg',
       iconSize: [40, 40],
       iconAnchor: [20, 40],
     });
