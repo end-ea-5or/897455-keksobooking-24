@@ -20,7 +20,7 @@ const getResetForms = () => {
   getAddPins(dataList.slice(0, MAX_LENGTH_DATA));
   map.setView(DEFAULT_COORDINATES, MAP_ZOOM_VALUE);
   photoPreviewBlock.innerHTML = '';
-  avatarPreview.src = './img/cupcake-grey.svg';
+  avatarPreview.src = './img/muffin-grey.svg';
 };
 
 export {getResetForms};
