@@ -966,7 +966,7 @@ fieldset {
   width: 109px;
   height: 122px;
 
-  background-image: url("../img/icons/cupcake-white.svg");
+  background-image: url("./img/cupcake-white.svg");
   background-position: center;
   background-repeat: no-repeat;
 
@@ -976,7 +976,7 @@ fieldset {
 }
 
 .error__message::before {
-  background-image: url("../img/icons/cupcake-red.svg");
+  background-image: url("./img/cupcake-red.svg");
 }
 
 .error__button {
